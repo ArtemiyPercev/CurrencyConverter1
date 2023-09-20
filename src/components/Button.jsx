@@ -1,7 +1,11 @@
+import styles from './button.module.css'
+
 const Button = () => {
   return (
     <div>
-      <button type="submit">Convert</button>
+      <button className={styles.btn} type="submit">
+        Convert
+      </button>
     </div>
   )
 }

@@ -9,6 +9,7 @@ const ConverterForm = () => {
   const [fromCurrency, setFromCurrency] = useState('EUR')
   const [toCurrency, setToCurrency] = useState('TRY')
   const [exchangeRate, setExchangeRate] = useState(null)
+  const [toAmount, setToAmount] = useState('')
 
   useEffect(() => {
     const fetchExchangeRate = async () => {
@@ -18,6 +19,7 @@ const ConverterForm = () => {
         )
         const data = await response.json()
         setExchangeRate(data.rate)
+        setToAmount(data.toAmount)
         console.log(data, exchangeRate)
       } catch (error) {
         console.error('Error fetching exchange rate:', error)
@@ -39,14 +41,18 @@ const ConverterForm = () => {
     setToCurrency(e.target.value)
   }
 
+  const handleToAmountChange = (e) => {
+    setToAmount(e.target.value)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    const convertedAmount =
-      fromCurrency == toCurrency
-        ? amount * 1
-        : setExchangeRate(amount * exchangeRate)
+    // const convertedAmount =
+    //   fromCurrency == toCurrency
+    //     ? amount * 1
+    //     : setExchangeRate(amount * exchangeRate)
 
-    return convertedAmount
+    return console.log(toAmount)
     // Здесь будет логика для конвертации валюты
   }
 
@@ -63,7 +69,10 @@ const ConverterForm = () => {
         currencyChange={handleToCurrencyChange}
       />
       <InputAmount amount={amount} amountChange={handleAmountChange} />
-      <DisplayAmount />
+      <DisplayAmount
+        convertedAmount={toAmount}
+        setToAmount={handleToAmountChange}
+      />
       <Button onClick={handleSubmit} />
     </form>
   )

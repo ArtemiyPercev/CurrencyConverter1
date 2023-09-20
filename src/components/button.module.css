@@ -1,0 +1,11 @@
+.btn {
+  background-color: greenyellow;
+  border: none;
+  color: white;
+  padding: 10px 100px;
+  margin: 15px;
+  text-align: center;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+}

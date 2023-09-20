@@ -1,8 +1,12 @@
-const DisplayAmount = () => {
+const DisplayAmount = ({ convertedAmount, setToAmount }) => {
   return (
     <div>
       <label>Display amount</label>
-      <input type="number" />
+      <input
+        type="number"
+        value={convertedAmount}
+        onChange={(e) => setToAmount(e)}
+      />
     </div>
   )
 }
