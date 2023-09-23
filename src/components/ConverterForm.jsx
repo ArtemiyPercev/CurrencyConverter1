@@ -48,7 +48,11 @@ const ConverterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (fromCurrency === toCurrency) {
+      return setToAmount(amount)
+    }
     setShowInputAmount(true)
+    // console.log(fromAmount)
     return console.log(toAmount)
     // Здесь будет логика для конвертации валюты
   }
