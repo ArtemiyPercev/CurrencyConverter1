@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import CurrencyChange from './CurrencyChange'
 import Button from './Button'
 import InputAmount from './InputAmount'
 import DisplayAmount from './DisplayAmount'
+import { HiOutlineArrowsRightLeft } from 'react-icons/hi2'
+import styles from './converterForm.module.css'
 
 const ConverterForm = () => {
   const [amount, setAmount] = useState('1.00')
@@ -12,26 +14,43 @@ const ConverterForm = () => {
   const [toAmount, setToAmount] = useState('')
   const [showInputAmount, setShowInputAmount] = useState(false)
 
-  useEffect(() => {
-    const fetchExchangeRate = async () => {
-      try {
-        const response = await fetch(
-          `https://my.transfergo.com/api/fx-rates?from=${fromCurrency}&to=${toCurrency}&amount=${amount}`
-        )
-        const data = await response.json()
-        setExchangeRate(data.rate)
-        setToAmount(data.toAmount)
-        console.log(data, exchangeRate)
-      } catch (error) {
-        console.error('Error fetching exchange rate:', error)
-      }
+  const fetchExchangeRate = async (reversed = false) => {
+    const apiURL = new URL('https://my.transfergo.com/api/fx-rates')
+
+    if (reversed) {
+      apiURL.searchParams.set('from', toCurrency)
+      apiURL.searchParams.set('to', fromCurrency)
+      apiURL.searchParams.set('amount', toAmount)
+    } else {
+      apiURL.searchParams.set('from', fromCurrency)
+      apiURL.searchParams.set('to', toCurrency)
+      apiURL.searchParams.set('amount', amount)
     }
 
-    fromCurrency !== toCurrency ? fetchExchangeRate() : setExchangeRate(1)
-  }, [fromCurrency, toCurrency, amount])
+    try {
+      const response = await fetch(apiURL)
+      const data = await response.json()
+      setExchangeRate(data.rate)
+
+      if (reversed) {
+        setAmount(data.toAmount)
+      } else {
+        setToAmount(data.toAmount)
+      }
+
+      console.log(data, exchangeRate)
+    } catch (error) {
+      console.error('Error fetching exchange rate:', error)
+    }
+  }
 
   const handleAmountChange = (e) => {
     setAmount(e.target.value)
+    if (!exchangeRate) {
+      return
+    }
+
+    fromCurrency !== toCurrency ? fetchExchangeRate() : setExchangeRate(1)
   }
 
   const handleFromCurrencyChange = (e) => {
@@ -44,42 +63,54 @@ const ConverterForm = () => {
 
   const handleToAmountChange = (e) => {
     setToAmount(e.target.value)
+
+    if (!exchangeRate) {
+      return
+    }
+
+    fromCurrency !== toCurrency ? fetchExchangeRate(true) : setExchangeRate(1)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    fetchExchangeRate()
     if (fromCurrency === toCurrency) {
+      setShowInputAmount(true)
       return setToAmount(amount)
     }
     setShowInputAmount(true)
-    // console.log(fromAmount)
-    return console.log(toAmount)
+    return console.log(toAmount.convertedAmount)
     // Здесь будет логика для конвертации валюты
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CurrencyChange
-        text="From"
-        currency={fromCurrency}
-        currencyChange={handleFromCurrencyChange}
-      />
-      <CurrencyChange
-        text="To"
-        currency={toCurrency}
-        currencyChange={handleToCurrencyChange}
-      />
-      <InputAmount amount={amount} amountChange={handleAmountChange} />
-      {showInputAmount && (
-        <DisplayAmount
-          convertedAmount={toAmount}
-          setToAmount={handleToAmountChange}
+    <form onSubmit={handleSubmit} className={styles.flexForm}>
+      <div className={styles.currency}>
+        <CurrencyChange
+          text="From:"
+          currency={fromCurrency}
+          currencyChange={handleFromCurrencyChange}
         />
-      )}
+        <div className={styles.icon}>
+          <HiOutlineArrowsRightLeft />
+        </div>
+        <CurrencyChange
+          text="To:"
+          currency={toCurrency}
+          currencyChange={handleToCurrencyChange}
+        />
+      </div>
+      <div className={styles.inputs}>
+        <InputAmount amount={amount} amountChange={handleAmountChange} />
+        {showInputAmount && (
+          <DisplayAmount
+            convertedAmount={toAmount}
+            setToAmount={handleToAmountChange}
+          />
+        )}
+      </div>
       <Button />
     </form>
   )
 }
 export default ConverterForm
-
-// problema v handleSubmit i

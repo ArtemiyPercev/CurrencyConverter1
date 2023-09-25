@@ -1,0 +1,23 @@
+.flexForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.currency {
+  display: flex;
+  margin: auto 0;
+}
+
+.inputs {
+  display: flex;
+  margin: auto 0;
+}
+
+.icon {
+  display: block;
+  cursor: pointer;
+  color: blue;
+  padding: 0px 15px;
+}

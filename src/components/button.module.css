@@ -1,11 +1,15 @@
 .btn {
-  background-color: greenyellow;
+  background-color: #61d352;
   border: none;
   color: white;
-  padding: 10px 100px;
-  margin: 15px;
+  /* padding: 10px 100px; */
+  /* margin-top: 94px; */
+  margin: 20px;
   text-align: center;
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
+  width: 625px;
+  height: 80px;
+  font-family: 'Times New Roman';
 }

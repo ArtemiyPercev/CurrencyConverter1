@@ -1,0 +1,12 @@
+.inputAmounts input {
+  width: 626px;
+  height: 50px;
+  border: none;
+  border-bottom: solid black 1px;
+}
+
+.inputAmounts {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
