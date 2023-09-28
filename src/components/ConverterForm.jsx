@@ -116,7 +116,21 @@ const ConverterForm = () => {
           />
         )}
       </div>
-      <Button isButtonClicked={isButtonClicked} />
+      {isButtonClicked ? (
+        <Button isButtonClicked={isButtonClicked} />
+      ) : (
+        <div>
+          <h2>{`${amount} ${fromCurrency} = ${toAmount} ${toCurrency}`}</h2>
+          <p>
+            All figures are live mid-market rates, which are for informational
+            puroposes only.
+          </p>
+          <p>
+            To see the rates for money transfer, please select sending money
+            option
+          </p>
+        </div>
+      )}
     </form>
   )
 }
