@@ -1,23 +1,22 @@
-import { BiChevronDown } from 'react-icons/bi'
 import styles from './currencyChange.module.css'
 
 const CurrencyChange = ({ text, currency, currencyChange }) => {
   const currencyArray = ['EUR', 'TRY', 'GBP']
 
-  // const testObject = [
-  //   {
-  //     text: 'EUR',
-  //     countryCode: 'EU',
-  //   },
-  //   {
-  //     text: 'TRY',
-  //     countryCode: 'TR',
-  //   },
-  //   {
-  //     text: 'GBP',
-  //     countryCode: 'GB',
-  //   },
-  // ]
+  const testObject = [
+    {
+      text: 'EUR',
+      countryCode: 'EU',
+    },
+    {
+      text: 'TRY',
+      countryCode: 'TR',
+    },
+    {
+      text: 'GBP',
+      countryCode: 'GB',
+    },
+  ]
 
   // const getFlags = async () => {
   //   try {
@@ -31,6 +30,8 @@ const CurrencyChange = ({ text, currency, currencyChange }) => {
   //     console.error('Error fetching exchange rate:', error)
   //   }
   // }
+
+  // getFlags()
 
   return (
     <div className={styles.currency}>
@@ -48,10 +49,6 @@ const CurrencyChange = ({ text, currency, currencyChange }) => {
             </option>
           )
         })}
-        {/* IZ-ZA ICONI OSHIBKA V CONSOLE */}
-        <span>
-          <BiChevronDown />
-        </span>
       </select>
     </div>
   )

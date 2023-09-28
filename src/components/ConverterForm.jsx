@@ -71,6 +71,11 @@ const ConverterForm = () => {
     fromCurrency !== toCurrency ? fetchExchangeRate(true) : setExchangeRate(1)
   }
 
+  const changeCurrency = () => {
+    setFromCurrency(toCurrency)
+    setToCurrency(fromCurrency)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     fetchExchangeRate()
@@ -92,7 +97,7 @@ const ConverterForm = () => {
           currencyChange={handleFromCurrencyChange}
         />
         <div className={styles.icon}>
-          <HiOutlineArrowsRightLeft />
+          <HiOutlineArrowsRightLeft onClick={changeCurrency} />
         </div>
         <CurrencyChange
           text="To:"
