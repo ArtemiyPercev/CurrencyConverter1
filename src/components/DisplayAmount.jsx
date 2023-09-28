@@ -1,6 +1,8 @@
+import styles from './displayAmount.module.css'
+
 const DisplayAmount = ({ convertedAmount, setToAmount }) => {
   return (
-    <div>
+    <div className={styles.displayAmount}>
       <label>Display amount</label>
       <input
         type="number"

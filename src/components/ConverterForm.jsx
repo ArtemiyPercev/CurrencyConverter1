@@ -13,6 +13,7 @@ const ConverterForm = () => {
   const [exchangeRate, setExchangeRate] = useState(null)
   const [toAmount, setToAmount] = useState('')
   const [showInputAmount, setShowInputAmount] = useState(false)
+  const [isButtonClicked, setIsButtonClicked] = useState(true)
 
   const fetchExchangeRate = async (reversed = false) => {
     const apiURL = new URL('https://my.transfergo.com/api/fx-rates')
@@ -79,6 +80,7 @@ const ConverterForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     fetchExchangeRate()
+    setIsButtonClicked(false)
     if (fromCurrency === toCurrency) {
       setShowInputAmount(true)
       return setToAmount(amount)
@@ -114,7 +116,7 @@ const ConverterForm = () => {
           />
         )}
       </div>
-      <Button />
+      <Button isButtonClicked={isButtonClicked} />
     </form>
   )
 }

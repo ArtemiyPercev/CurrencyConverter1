@@ -1,11 +1,13 @@
 import styles from './button.module.css'
 
-const Button = () => {
+const Button = ({ isButtonClicked }) => {
   return (
     <div>
-      <button className={styles.btn} type="submit">
-        Convert
-      </button>
+      {isButtonClicked && (
+        <button className={styles.btn} type="submit">
+          Convert
+        </button>
+      )}
     </div>
   )
 }
