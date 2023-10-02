@@ -1,9 +1,11 @@
 import styles from './inputAmount.module.css'
 
 const InputAmount = (props) => {
-  const { amount, amountChange } = props
+  const { amount, amountChange, isButtonClicked } = props
   return (
-    <div className={styles.inputAmounts}>
+    <div
+      className={isButtonClicked ? styles.inputAmounts : styles.lowerInputWidth}
+    >
       <label>Amount:</label>
       <input type="number" value={amount} onChange={(e) => amountChange(e)} />
     </div>

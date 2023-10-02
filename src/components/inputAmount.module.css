@@ -10,3 +10,17 @@
   flex-direction: column;
   align-items: start;
 }
+
+.lowerInputWidth input {
+  width: 280px;
+  height: 50px;
+  border: none;
+  border-bottom: solid black 1px;
+  margin-right: 67px;
+}
+
+.lowerInputWidth {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}

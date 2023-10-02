@@ -108,7 +108,11 @@ const ConverterForm = () => {
         />
       </div>
       <div className={styles.inputs}>
-        <InputAmount amount={amount} amountChange={handleAmountChange} />
+        <InputAmount
+          amount={amount}
+          amountChange={handleAmountChange}
+          isButtonClicked={isButtonClicked}
+        />
         {showInputAmount && (
           <DisplayAmount
             convertedAmount={toAmount}
@@ -120,7 +124,7 @@ const ConverterForm = () => {
         <Button isButtonClicked={isButtonClicked} />
       ) : (
         <div>
-          <h2>{`${amount} ${fromCurrency} = ${toAmount} ${toCurrency}`}</h2>
+          <h2>{`1 ${fromCurrency} = ${exchangeRate} ${toCurrency}`}</h2>
           <p>
             All figures are live mid-market rates, which are for informational
             puroposes only.
