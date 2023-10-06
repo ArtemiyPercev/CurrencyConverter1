@@ -87,7 +87,7 @@ const ConverterForm = () => {
     }
     setShowInputAmount(true)
     return console.log(toAmount.convertedAmount)
-    // Здесь будет логика для конвертации валюты
+    // // Здесь будет логика для конвертации валюты
   }
 
   return (
