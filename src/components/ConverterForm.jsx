@@ -146,11 +146,13 @@ const ConverterForm = () => {
           amount={amount}
           amountChange={handleAmountChange}
           isButtonClicked={isButtonClicked}
+          currency={fromCurrency}
         />
         {showInputAmount && (
           <DisplayAmount
             convertedAmount={toAmount}
             setToAmount={handleToAmountChange}
+            currency={toCurrency}
           />
         )}
       </div>

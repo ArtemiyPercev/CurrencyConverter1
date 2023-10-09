@@ -1,6 +1,6 @@
 import styles from './displayAmount.module.css'
 
-const DisplayAmount = ({ convertedAmount, setToAmount }) => {
+const DisplayAmount = ({ convertedAmount, setToAmount, currency }) => {
   return (
     <div className={styles.displayAmount}>
       <label>Display amount:</label>
@@ -9,6 +9,7 @@ const DisplayAmount = ({ convertedAmount, setToAmount }) => {
         value={convertedAmount}
         onChange={(e) => setToAmount(e)}
       />
+      <span className={styles.currencyName}>{currency}</span>
     </div>
   )
 }
