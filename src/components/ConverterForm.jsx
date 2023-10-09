@@ -5,6 +5,7 @@ import InputAmount from './InputAmount'
 import DisplayAmount from './DisplayAmount'
 import { HiOutlineArrowsRightLeft } from 'react-icons/hi2'
 import styles from './converterForm.module.css'
+import { CgShapeCircle } from 'react-icons/cg'
 
 const ConverterForm = () => {
   const [amount, setAmount] = useState('1.00')
@@ -15,22 +16,34 @@ const ConverterForm = () => {
   const [showInputAmount, setShowInputAmount] = useState(false)
   const [isButtonClicked, setIsButtonClicked] = useState(true)
 
-  const fetchExchangeRate = async (reversed = false) => {
+  const fetchExchangeRate = async (options = {}) => {
+    const {
+      reversed = false,
+      value,
+      fromCurrencyValue = fromCurrency,
+      toCurrencyValue = toCurrency,
+    } = options
+    const formattedValue = value ? value : reversed ? toAmount : amount
     const apiURL = new URL('https://my.transfergo.com/api/fx-rates')
 
     if (reversed) {
-      apiURL.searchParams.set('from', toCurrency)
-      apiURL.searchParams.set('to', fromCurrency)
-      apiURL.searchParams.set('amount', toAmount)
+      apiURL.searchParams.set('from', toCurrencyValue)
+      apiURL.searchParams.set('to', fromCurrencyValue)
+      apiURL.searchParams.set('amount', formattedValue)
     } else {
-      apiURL.searchParams.set('from', fromCurrency)
-      apiURL.searchParams.set('to', toCurrency)
-      apiURL.searchParams.set('amount', amount)
+      apiURL.searchParams.set('from', fromCurrencyValue)
+      apiURL.searchParams.set('to', toCurrencyValue)
+      apiURL.searchParams.set('amount', formattedValue)
     }
 
     try {
       const response = await fetch(apiURL)
       const data = await response.json()
+
+      if (data.error) {
+        throw data.error
+      }
+
       setExchangeRate(data.rate)
 
       if (reversed) {
@@ -51,15 +64,33 @@ const ConverterForm = () => {
       return
     }
 
-    fromCurrency !== toCurrency ? fetchExchangeRate() : setExchangeRate(1)
+    fromCurrency !== toCurrency
+      ? fetchExchangeRate({ value: e.target.value })
+      : setExchangeRate(1)
   }
 
   const handleFromCurrencyChange = (e) => {
     setFromCurrency(e.target.value)
+
+    if (!exchangeRate) {
+      return
+    }
+
+    fromCurrency !== toCurrency
+      ? fetchExchangeRate({ fromCurrencyValue: e.target.value })
+      : setExchangeRate(1)
   }
 
   const handleToCurrencyChange = (e) => {
     setToCurrency(e.target.value)
+
+    if (!exchangeRate) {
+      return
+    }
+
+    fromCurrency !== toCurrency
+      ? fetchExchangeRate({ toCurrencyValue: e.target.value })
+      : setExchangeRate(1)
   }
 
   const handleToAmountChange = (e) => {
@@ -69,12 +100,15 @@ const ConverterForm = () => {
       return
     }
 
-    fromCurrency !== toCurrency ? fetchExchangeRate(true) : setExchangeRate(1)
+    fromCurrency !== toCurrency
+      ? fetchExchangeRate({ reversed: true, value: e.target.value })
+      : setExchangeRate(1)
   }
 
   const changeCurrency = () => {
     setFromCurrency(toCurrency)
     setToCurrency(fromCurrency)
+    fetchExchangeRate()
   }
 
   const handleSubmit = (e) => {
@@ -98,9 +132,9 @@ const ConverterForm = () => {
           currency={fromCurrency}
           currencyChange={handleFromCurrencyChange}
         />
-        <div className={styles.icon}>
+        <span className={styles.hiOutlineArrowsRightLeftIcon}>
           <HiOutlineArrowsRightLeft onClick={changeCurrency} />
-        </div>
+        </span>
         <CurrencyChange
           text="To:"
           currency={toCurrency}
@@ -123,8 +157,13 @@ const ConverterForm = () => {
       {isButtonClicked ? (
         <Button isButtonClicked={isButtonClicked} />
       ) : (
-        <div>
-          <h2>{`1 ${fromCurrency} = ${exchangeRate} ${toCurrency}`}</h2>
+        <div className={styles.info}>
+          <h2>
+            <span className={styles.cgShapeCircleIcon}>
+              <CgShapeCircle />
+            </span>
+            <span> {`1 ${fromCurrency} = ${exchangeRate} ${toCurrency}`}</span>
+          </h2>
           <p>
             All figures are live mid-market rates, which are for informational
             puroposes only.
