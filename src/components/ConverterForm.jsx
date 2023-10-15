@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CurrencyChange from './CurrencyChange'
 import Button from './Button'
 import InputAmount from './InputAmount'
@@ -127,19 +127,23 @@ const ConverterForm = () => {
   return (
     <form onSubmit={handleSubmit} className={styles.flexForm}>
       <div className={styles.currency}>
-        <CurrencyChange
-          text="From:"
-          currency={fromCurrency}
-          currencyChange={handleFromCurrencyChange}
-        />
+        <div className={styles.fromCurrencyInput}>
+          <CurrencyChange
+            text="From:"
+            currency={fromCurrency}
+            currencyChange={handleFromCurrencyChange}
+          />
+        </div>
         <span className={styles.hiOutlineArrowsRightLeftIcon}>
           <HiOutlineArrowsRightLeft onClick={changeCurrency} />
         </span>
-        <CurrencyChange
-          text="To:"
-          currency={toCurrency}
-          currencyChange={handleToCurrencyChange}
-        />
+        <div className={styles.toCurrencyInput}>
+          <CurrencyChange
+            text="To:"
+            currency={toCurrency}
+            currencyChange={handleToCurrencyChange}
+          />
+        </div>
       </div>
       <div className={styles.inputs}>
         <InputAmount
@@ -164,7 +168,7 @@ const ConverterForm = () => {
             <span className={styles.cgShapeCircleIcon}>
               <CgShapeCircle />
             </span>
-            <span> {`1 ${fromCurrency} = ${exchangeRate} ${toCurrency}`}</span>
+            <span>{`1 ${fromCurrency} = ${exchangeRate} ${toCurrency}`}</span>
           </h2>
           <p>
             All figures are live mid-market rates, which are for informational

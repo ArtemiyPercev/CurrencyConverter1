@@ -10,6 +10,8 @@ div {
 }
 
 .displayAmount {
+  color: gray;
+  text-transform: uppercase;
   display: flex;
   flex-direction: column;
   align-items: start;

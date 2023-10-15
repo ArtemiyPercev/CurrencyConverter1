@@ -8,6 +8,7 @@
 .currency {
   display: flex;
   margin: auto 0;
+  position: relative;
 }
 
 .inputs {
@@ -16,11 +17,11 @@
 }
 
 .info {
-  text-align: left;
-  width: 55%;
+  width: 620px;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+  text-align: left;
 }
 
 .info > p {
@@ -28,14 +29,21 @@
 }
 
 .hiOutlineArrowsRightLeftIcon {
+  position: absolute;
   display: block;
   cursor: pointer;
   color: blue;
-  padding: 0px 15px;
+  top: 45px;
+  left: 312px;
+  /* padding: 0px 15px; */
 }
 
 .cgShapeCircleIcon {
   color: rgb(255, 219, 15);
   vertical-align: center;
   font-size: 20px;
+}
+
+.fromCurrencyInput {
+  margin-right: 45px;
 }

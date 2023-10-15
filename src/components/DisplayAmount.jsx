@@ -3,7 +3,7 @@ import styles from './displayAmount.module.css'
 const DisplayAmount = ({ convertedAmount, setToAmount, currency }) => {
   return (
     <div className={styles.displayAmount}>
-      <label>Display amount:</label>
+      <label>Converted to:</label>
       <input
         type="number"
         value={convertedAmount}

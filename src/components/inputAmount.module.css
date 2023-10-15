@@ -6,12 +6,16 @@ div {
   display: flex;
   flex-direction: column;
   align-items: start;
+  color: gray;
+  text-transform: uppercase;
 }
 
 .inputAmounts {
   display: flex;
   flex-direction: column;
   align-items: start;
+  color: gray;
+  text-transform: uppercase;
 }
 
 .lowerInputWidth input {

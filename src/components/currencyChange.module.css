@@ -4,6 +4,8 @@
   margin-bottom: 10px;
   align-items: flex-start;
   margin: 10px;
+  color: gray;
+  text-transform: uppercase;
 }
 
 .currency select {
@@ -12,3 +14,16 @@
   border: none;
   border-bottom: solid rgb(96, 232, 247) 1px;
 }
+
+/* .currency option::after {
+  content: '';
+  display: block;
+  border-bottom: 1px solid black;
+  margin: 2px 0;
+  padding: 2px;
+}
+
+.bord {
+  content: '';
+  border: 1px solid black;
+} */
